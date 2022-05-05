@@ -1,6 +1,5 @@
 import { Body, Get, JsonController, Post, Put, Delete, Param } from "routing-controllers";
 import { DeleteResult, UpdateResult } from "typeorm";
-
 import { ExampleEntity } from "../../models";
 
 @JsonController("/example-entity")
@@ -16,12 +15,12 @@ export class UserController {
   }
 
   @Post()
-  create(@Body() body: Pick<ExampleEntity, "exampleColumn">): Promise<ExampleEntity> {
+  create(@Body() body: Pick<ExampleEntity, "year">): Promise<ExampleEntity> {
     return ExampleEntity.create(body).save();
   }
 
   @Put("/:id")
-  update(@Param("id") id: string, @Body() body: Pick<ExampleEntity, "exampleColumn">): Promise<UpdateResult> {
+  update(@Param("id") id: string, @Body() body: Pick<ExampleEntity, "year">): Promise<UpdateResult> {
     return ExampleEntity.update(id, {...body});
   }
 
