@@ -18,7 +18,8 @@ Here, I've built a set of REST API's to support the functionality expressed with
 
 ## How to spin up the server :
 - `docker-compose up` in the root directory to start MySQL.
-- `npm run build && npm start` in the root directory to generate build files and start the Express server.
+- `npm install` to install the project's dependencies.
+- `npm run build && npm start` to generate build files and start the Express server.
 - `node src/utils/seed` in the root directory to populate the database with 5 new entries.
 
 ### Assumptions made :
