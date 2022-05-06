@@ -9,7 +9,7 @@ export function ExpressServerLoader(): Application {
     classTransformer: true,
     defaultErrorHandler: false,
     middlewares: [],
-    controllers: [Cars],
+    controllers: [Cars]
   });
 
   expressApp.listen(process.env.PORT);

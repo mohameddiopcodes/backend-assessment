@@ -1,7 +1,9 @@
 import {
-  BaseEntity, Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn,
+  BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
+
+import { Length, Max, Min } from "class-validator";
 
 @Entity("Car")
 export class Car extends BaseEntity {
@@ -9,6 +11,7 @@ export class Car extends BaseEntity {
     id: string;
 
   @Column()
+  @Length(4)
     year: string;
 
   @Column()
@@ -37,19 +40,30 @@ export class Car extends BaseEntity {
   @Column()
     vin: string;
 
+  @Min(0)
+  @Max(1000000)
   @Column()
     value: number;
 
-  @Column()
+  @Min(0)
+  @Max(1000000)@Column()
     mileage: number;
 
   @Column()
     fuel: string;
 
-  @Column()
+  @Min(0)
+  @Max(5)
+  @Column({
+    nullable: true
+  })
     doors: number;
 
-  @Column()
+  @Min(0)
+  @Max(11)
+  @Column({
+    nullable: true
+  })
     seats: number;
 
   @Column()
@@ -66,7 +80,4 @@ export class Car extends BaseEntity {
 
   @UpdateDateColumn()
     updatedDate: Date;
-
-  @DeleteDateColumn()
-    deletedDate: Date;
 }

@@ -26,7 +26,7 @@ async function handleSeed() {
     seedData["registrationExpiration"] = Date.parse(new Date().toISOString());
     seedData["nameOnRegistration"] = faker.name.findName();
     seedData["color"] = faker.vehicle.color();
-    seedData["fuel"] = faker.vehicle.color();
+    seedData["fuel"] = faker.vehicle.fuel();
     seedData["value"] = faker.finance.amount(9000, 120000);
     seedData["mileage"] = faker.finance.amount(113, 78000);
 

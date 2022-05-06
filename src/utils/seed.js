@@ -74,7 +74,7 @@ function handleSeed() {
                     seedData["registrationExpiration"] = Date.parse(new Date().toISOString());
                     seedData["nameOnRegistration"] = faker_1.faker.name.findName();
                     seedData["color"] = faker_1.faker.vehicle.color();
-                    seedData["fuel"] = faker_1.faker.vehicle.color();
+                    seedData["fuel"] = faker_1.faker.vehicle.fuel();
                     seedData["value"] = faker_1.faker.finance.amount(9000, 120000);
                     seedData["mileage"] = faker_1.faker.finance.amount(113, 78000);
                     return [4 /*yield*/, axios_1["default"].post("http://127.0.0.1:8889/cars", seedData)];

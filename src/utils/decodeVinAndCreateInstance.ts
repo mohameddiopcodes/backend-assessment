@@ -17,7 +17,6 @@ export default async function decodeVinAndCreateInstance(
 
   const decoded = await axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/${vin}?format=json`);
 
-  console.log(decoded.data);
   if(!licensePlate &&
     !registrationState &&
     !vin &&
@@ -45,9 +44,9 @@ export default async function decodeVinAndCreateInstance(
     value,
     mileage,
     make: decoded.data.Results[0].Make,
-    model: decoded.data.Results[0].Model || undefined,
-    type: decoded.data.Results[0].VehicleType || undefined,
-    doors: decoded.data.Results[0].Doors || 0,
-    seats: decoded.data.Results[0].Seats || 0
+    model: decoded.data.Results[0].Model || null,
+    type: decoded.data.Results[0].VehicleType || null,
+    doors: decoded.data.Results[0].Doors || null,
+    seats: decoded.data.Results[0].Seats || null
   }).save();
 }
