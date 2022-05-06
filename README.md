@@ -23,6 +23,13 @@ Here, I've built a set of REST API's to support the functionality expressed with
 
 ### Assumptions made :
 - `doors, seats, fuel, make and model` were assumed to be relevant information to store.
-- the server is built into the `./dist` folder, assumed to be ran in production mode.
+- updated build files are in the `./dist` folder waiting to be ran.
 - `licensePlate, registrationState, vin` and `year` were scrapped from [randomlicenseplate.com](https://randomlicenseplate.com/license-plate).
-- `registration`, `nameOnRegistration`, `color`, `fuel`, `value` and `mileage` were generated using [faker](https://fakerjs.dev/guide/#overview).
+- `registration`, `nameOnRegistration`, `color`, `fuel`, `value` and `mileage` were generated using [the faker library](https://fakerjs.dev/guide/#overview).
+- `registrationExpiration` is saved in the database as a timestamp of the moment when the car is submitted to the API.
+
+### Feedback :
+- Work was done in 3 days including learning `Typescript` and implementing the stack.
+- Requirements were crystal clear.
+- from 1 to 10, I would give it a 5/10 in difficulty.
+- I feel like a project based assessment like this one simulates real work situations better than a Leetcode style assessment could.
