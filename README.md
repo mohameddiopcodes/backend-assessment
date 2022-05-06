@@ -18,12 +18,11 @@ Here, I've built a set of REST API's to support the functionality expressed with
 
 ## How to spin up the server :
 - `docker-compose up` in the root directory to start MySQL.
-- `npm start` in the root directory to start the Express server.
+- `npm run build && npm start` in the root directory to generate build files and start the Express server.
 - `node src/utils/seed` in the root directory to populate the database with 5 new entries.
 
 ### Assumptions made :
 - `doors, seats, fuel, make and model` were assumed to be relevant information to store.
-- updated build files are in the `./dist` folder waiting to be ran.
 - `licensePlate, registrationState, vin and year` were scrapped from [randomlicenseplate.com](https://randomlicenseplate.com/license-plate).
 - `registration, nameOnRegistration, color, fuel, value and mileage` were generated using [the faker library](https://fakerjs.dev/guide/#overview).
 - `registrationExpiration` is saved in the database as a timestamp of the moment when the car is submitted to the API.
