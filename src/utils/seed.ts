@@ -4,6 +4,7 @@ import { faker } from "@faker-js/faker";
 
 async function seed(re: number) {
   for(let i = 0; i < re; i++) { handleSeed(); }
+  console.log("database seeded.");
 }
 
 async function handleSeed() {
@@ -29,7 +30,7 @@ async function handleSeed() {
     seedData["value"] = faker.finance.amount(9000, 120000);
     seedData["mileage"] = faker.finance.amount(113, 78000);
 
-    await axios.post(`http://127.0.0.1:${TYPEORM_PORT}/example-entity`, seedData);
+    await axios.post("http://127.0.0.1:8889/cars", seedData);
   } catch(e) {
     console.log(e);
   }
@@ -42,7 +43,5 @@ const fields_of_interest = {
   description: "description",
   registrationyear: "year"
 };
-
-const { TYPEORM_PORT } = process.env;
 
 seed(5);

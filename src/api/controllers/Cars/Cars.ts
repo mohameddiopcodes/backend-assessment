@@ -1,24 +1,24 @@
 import { Body, Get, JsonController, Post, Put, Delete, Param } from "routing-controllers";
-import { ExampleEntity } from "../../models";
+import { Car } from "../../models";
 
 import decodeVinAndCreateInstance from "../../../utils/decodeVinAndCreateInstance";
 
-@JsonController("/example-entity")
-export class UserController {
+@JsonController("/cars")
+export class Cars {
   @Get()
-  getAll(): Promise<ExampleEntity[]> {
-    return ExampleEntity.find();
+  getAll(): Promise<Car[]> {
+    return Car.find();
   }
 
   @Get("/:id")
-  async getOne(@Param("id") id: string): Promise<ExampleEntity> {
-    const entity = await ExampleEntity.findOne(id);
+  async getOne(@Param("id") id: string): Promise<Car> {
+    const entity = await Car.findOne(id);
     if (!entity) return undefined;
-    return ExampleEntity.findOne(id);
+    return Car.findOne(id);
   }
 
   @Post()
-  async create(@Body() body: Pick<ExampleEntity, ExampleEntityKeys>): Promise<ExampleEntity|string> {
+  async create(@Body() body: Pick<Car, CarKeys>): Promise<Car|string> {
     const {
       licensePlate,
       registrationState,
@@ -51,18 +51,18 @@ export class UserController {
   }
 
   @Put("/:id")
-  async update(@Param("id") id: string, @Body() body: Pick<ExampleEntity, ExampleEntityKeys>): Promise<string> {
-    const { affected } = await ExampleEntity.update(id, {...body});
+  async update(@Param("id") id: string, @Body() body: Pick<Car, CarKeys>): Promise<string> {
+    const { affected } = await Car.update(id, {...body});
     if (!affected) return undefined;
     return "successfully updated";
   }
 
   @Delete("/:id")
   async delete(@Param("id") id: string): Promise<string> {
-    const { affected } = await ExampleEntity.delete(id);
+    const { affected } = await Car.delete(id);
     if (!affected) return undefined;
     return "successfully deleted";
   }
 }
 
-type ExampleEntityKeys = "licensePlate"|"registration"|"registrationState"|"vin"|"description"|"year"|"type"|"fuel"|"doors"|"registration"|"registrationExpiration"|"nameOnRegistration"|"color"|"fuel"|"value"|"mileage";
+type CarKeys = "licensePlate"|"registration"|"registrationState"|"vin"|"description"|"year"|"type"|"fuel"|"doors"|"registration"|"registrationExpiration"|"nameOnRegistration"|"color"|"fuel"|"value"|"mileage";

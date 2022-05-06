@@ -36,37 +36,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var axios_1 = require("axios");
 var cheerio_1 = require("cheerio");
+var axios_1 = require("axios");
 var faker_1 = require("@faker-js/faker");
-var TYPEORM_PORT = process.env.TYPEORM_PORT;
-var fields_of_interest = {
-    number: "licensePlate",
-    state: "registrationState",
-    vin: "vin",
-    description: "description",
-    registrationyear: "year"
-};
 function seed(re) {
     return __awaiter(this, void 0, void 0, function () {
-        var i, res, seedData, headings, data, i_1, heading, data_1, e_1;
+        var i;
+        return __generator(this, function (_a) {
+            for (i = 0; i < re; i++) {
+                handleSeed();
+            }
+            console.log("database seeded.");
+            return [2 /*return*/];
+        });
+    });
+}
+function handleSeed() {
+    return __awaiter(this, void 0, void 0, function () {
+        var res, seedData, headings, data, i, heading, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    i = 0;
-                    _a.label = 1;
-                case 1:
-                    if (!(i < re)) return [3 /*break*/, 7];
+                    _a.trys.push([0, 3, , 4]);
                     return [4 /*yield*/, axios_1["default"].get("https://randomlicenseplate.com/license-plate")];
-                case 2:
+                case 1:
                     res = _a.sent();
                     seedData = {};
                     headings = cheerio_1["default"].load(res.data)("th");
                     data = cheerio_1["default"].load(res.data)("td");
-                    for (i_1 = 0; i_1 < data.length; i_1++) {
-                        heading = cheerio_1["default"].load(headings[i_1]).text().trim().replace(" ", "").toLowerCase();
+                    for (i = 0; i < data.length; i++) {
+                        heading = cheerio_1["default"].load(headings[i]).text().trim().replace(" ", "").toLowerCase();
                         if (fields_of_interest[heading]) {
-                            seedData[fields_of_interest[heading]] = cheerio_1["default"].load(data[i_1]).text().trim();
+                            seedData[fields_of_interest[heading]] = cheerio_1["default"].load(data[i]).text().trim();
                         }
                     }
                     seedData["registration"] = faker_1.faker.vehicle.vrm();
@@ -76,24 +77,24 @@ function seed(re) {
                     seedData["fuel"] = faker_1.faker.vehicle.color();
                     seedData["value"] = faker_1.faker.finance.amount(9000, 120000);
                     seedData["mileage"] = faker_1.faker.finance.amount(113, 78000);
-                    _a.label = 3;
+                    return [4 /*yield*/, axios_1["default"].post("http://127.0.0.1:8889/cars", seedData)];
+                case 2:
+                    _a.sent();
+                    return [3 /*break*/, 4];
                 case 3:
-                    _a.trys.push([3, 5, , 6]);
-                    return [4 /*yield*/, axios_1["default"].post("http://127.0.0.1:".concat(TYPEORM_PORT, "/example-entity"), seedData)];
-                case 4:
-                    data_1 = (_a.sent()).data;
-                    console.log(data_1);
-                    return [3 /*break*/, 6];
-                case 5:
                     e_1 = _a.sent();
                     console.log(e_1);
-                    return [3 /*break*/, 6];
-                case 6:
-                    i++;
-                    return [3 /*break*/, 1];
-                case 7: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
+var fields_of_interest = {
+    number: "licensePlate",
+    state: "registrationState",
+    vin: "vin",
+    description: "description",
+    registrationyear: "year"
+};
 seed(5);

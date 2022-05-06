@@ -1,7 +1,7 @@
 import { Application } from "express";
 import { createExpressServer } from "routing-controllers";
 
-import * as Controllers from "../api/controllers";
+import { Cars } from "../api/controllers/Cars/Cars";
 
 export function ExpressServerLoader(): Application {
   const expressApp: Application = createExpressServer({
@@ -9,7 +9,7 @@ export function ExpressServerLoader(): Application {
     classTransformer: true,
     defaultErrorHandler: false,
     middlewares: [],
-    controllers: Object.values(Controllers),
+    controllers: [Cars],
   });
 
   expressApp.listen(process.env.PORT);

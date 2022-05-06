@@ -3,8 +3,8 @@ import {
   UpdateDateColumn
 } from "typeorm";
 
-@Entity("TableNameForExampleEntity")
-export class ExampleEntity extends BaseEntity {
+@Entity("Car")
+export class Car extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
     id: string;
 
