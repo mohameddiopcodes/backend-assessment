@@ -11,8 +11,8 @@ Here, I've built a set of REST API's to support the functionality expressed with
 - `routing-controllers`
 
 ## Work done :
-- Created a Car entity storing all the data present in the [UI sketch](https://xd.adobe.com/view/fed5ede8-2626-46ec-a3f9-ec0cba0df6f4-ab86/) `src/api/models/Car` `(TypeORM/MySQL)`.
-- Implemented CRUD for the Car resource `src/api/controllers/Cars` `(routing-controllers/Express)`.
+- Created a Car entity storing all the data present in the [UI sketch](https://xd.adobe.com/view/fed5ede8-2626-46ec-a3f9-ec0cba0df6f4-ab86/) `src/api/models/Car`.
+- Implemented CRUD for the Car resource `src/api/controllers/Cars`.
 - Wrote a handy seed function to populate the database with relevant data `src/utils/seed`.
 -  Used the [NHTSA API](https://vpic.nhtsa.dot.gov/api/) to decode VINs and store the decoded vehicle details `src/utils/decodeVinAndCreateInstance`.
 
@@ -24,8 +24,8 @@ Here, I've built a set of REST API's to support the functionality expressed with
 ### Assumptions made :
 - `doors, seats, fuel, make and model` were assumed to be relevant information to store.
 - updated build files are in the `./dist` folder waiting to be ran.
-- `licensePlate, registrationState, vin` and `year` were scrapped from [randomlicenseplate.com](https://randomlicenseplate.com/license-plate).
-- `registration`, `nameOnRegistration`, `color`, `fuel`, `value` and `mileage` were generated using [the faker library](https://fakerjs.dev/guide/#overview).
+- `licensePlate, registrationState, vin and year` were scrapped from [randomlicenseplate.com](https://randomlicenseplate.com/license-plate).
+- `registration, nameOnRegistration, color, fuel, value and mileage` were generated using [the faker library](https://fakerjs.dev/guide/#overview).
 - `registrationExpiration` is saved in the database as a timestamp of the moment when the car is submitted to the API.
 
 ### Feedback :
