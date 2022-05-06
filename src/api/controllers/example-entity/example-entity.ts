@@ -1,7 +1,7 @@
-import axios from "axios";
 import { Body, Get, JsonController, Post, Put, Delete, Param } from "routing-controllers";
-import { DeleteResult, UpdateResult } from "typeorm";
 import { ExampleEntity } from "../../models";
+
+import decodeVinAndCreateInstance from "../../../utils/decodeVinAndCreateInstance";
 
 @JsonController("/example-entity")
 export class UserController {
@@ -11,47 +11,58 @@ export class UserController {
   }
 
   @Get("/:id")
-  getOne(@Param("id") id: string): Promise<ExampleEntity> {
+  async getOne(@Param("id") id: string): Promise<ExampleEntity> {
+    const entity = await ExampleEntity.findOne(id);
+    if (!entity) return undefined;
     return ExampleEntity.findOne(id);
   }
 
   @Post()
-  async create(@Body() body: Pick<ExampleEntity, ExampleEntityKeys>): Promise<ExampleEntity> {
+  async create(@Body() body: Pick<ExampleEntity, ExampleEntityKeys>): Promise<ExampleEntity|string> {
     const {
       licensePlate,
       registrationState,
       vin,
       description,
-      year
+      year,
+      registration,
+      registrationExpiration,
+      nameOnRegistration,
+      color,
+      fuel,
+      value,
+      mileage
     } = body;
 
-    const decoded = await axios.get("https://vpic.nhtsa.dot.gov/api/vehicles/decodevinvalues/" + vin + "?format=json&modelyear=2011");
-
-    console.log(decoded.data.Results);
-
-    const entity = ExampleEntity.create({
+    return decodeVinAndCreateInstance(
       licensePlate,
       registrationState,
       vin,
       description,
-      year
-    });
-
-    entity.make = decoded.data.Results[0].Make;
-    entity.model = decoded.data.Results[0].Model;
-    entity.year = decoded.data.Results[0].ModelYear;
-    return entity;
+      year,
+      registration,
+      registrationExpiration,
+      nameOnRegistration,
+      color,
+      fuel,
+      value,
+      mileage
+    );
   }
 
   @Put("/:id")
-  update(@Param("id") id: string, @Body() body: Pick<ExampleEntity, ExampleEntityKeys>): Promise<UpdateResult> {
-    return ExampleEntity.update(id, {...body});
+  async update(@Param("id") id: string, @Body() body: Pick<ExampleEntity, ExampleEntityKeys>): Promise<string> {
+    const { affected } = await ExampleEntity.update(id, {...body});
+    if (!affected) return undefined;
+    return "successfully updated";
   }
 
   @Delete("/:id")
-  delete(@Param("id") id: string): Promise<DeleteResult> {
-    return ExampleEntity.delete(id);
+  async delete(@Param("id") id: string): Promise<string> {
+    const { affected } = await ExampleEntity.delete(id);
+    if (!affected) return undefined;
+    return "successfully deleted";
   }
 }
 
-type ExampleEntityKeys = "licensePlate"|"registration"|"registrationState"|"vin"|"description"|"year";
+type ExampleEntityKeys = "licensePlate"|"registration"|"registrationState"|"vin"|"description"|"year"|"type"|"fuel"|"doors"|"registration"|"registrationExpiration"|"nameOnRegistration"|"color"|"fuel"|"value"|"mileage";

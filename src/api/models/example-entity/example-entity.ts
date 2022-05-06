@@ -9,7 +9,7 @@ export class ExampleEntity extends BaseEntity {
     id: string;
 
   @Column()
-    year: number;
+    year: string;
 
   @Column()
     make: string;
@@ -18,22 +18,24 @@ export class ExampleEntity extends BaseEntity {
     model: string;
 
   @Column()
-    licensePlate: number;
+    licensePlate: string;
 
   @Column()
-    registration: number;
+    registration: string;
 
   @Column()
     registrationState: string;
 
-  @Column()
-    registrationExpiration: string;
+  @Column({
+    type: "timestamp"
+  })
+    registrationExpiration: Date;
 
   @Column()
     nameOnRegistration: string;
 
   @Column()
-    vin: number;
+    vin: string;
 
   @Column()
     value: number;
@@ -42,10 +44,22 @@ export class ExampleEntity extends BaseEntity {
     mileage: number;
 
   @Column()
+    fuel: string;
+
+  @Column()
+    doors: number;
+
+  @Column()
+    seats: number;
+
+  @Column()
     description: string;
 
   @Column()
     color: string;
+
+  @Column()
+    type: string;
 
   @CreateDateColumn()
     createdDate: Date;
